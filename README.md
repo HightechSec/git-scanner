@@ -9,8 +9,9 @@
 ![GitHub issues](https://img.shields.io/github/issues/HightechSec/git-scanner)
 ![GitHub watchers](https://img.shields.io/github/watchers/HightechSec/git-scanner)
 
-This tool can scan websites with open ```.git``` repositories for `Bug Hunting`/ `Pentesting` and can dump the content of the ```.git``` repositories from webservers that found from the scanning method. This tool works with Single or Mass Target
+This tool can scan websites with open ```.git``` repositories for `Bug Hunting`/ `Pentesting` and can dump the content of the ```.git``` repositories from webservers that found from the scanning method. This tool works with the provided Single or Mass Target
 
+<img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/1-gitscanner.PNG" width="30%"></img> <img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/2-gitscanner.PNG" width="30%"></img> <img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/3-gitscanner.PNG" width="30%"></img> 
 ## Installation
 ```
 - git clone https://github.com/HightechSec/git-scanner
