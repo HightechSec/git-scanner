@@ -25,10 +25,10 @@ or you can install in your system like this
 - $ gitscanner
 ```
 ## Usage
-Menu `1` is for scanning and dumping git repositories from a provided file that contains the list of url target
-Menu `2` is for scanning and dumping git repositories from a provided single url target
-Menu `3` is for scanning only the git repositories from a provided file that contains the list of url target 
-Menu `4` is for scanning only the git repositories from a provided single url target
+- Menu `1` is for scanning and dumping git repositories from a provided file that contains the list of url target
+- Menu `2` is for scanning and dumping git repositories from a provided single url target
+- Menu `3` is for scanning only the git repositories from a provided file that contains the list of url target 
+- Menu `4` is for scanning only the git repositories from a provided single url target
 
 ## Requirements
 * curl
