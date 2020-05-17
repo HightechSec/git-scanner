@@ -40,6 +40,7 @@ or you can install in your system like this
 ## Todo
 - Creating a `Docker Images` if it's possible
 - Adding Extractor on the next Version
+- Adding Thread Processing
 
 # Credits
 Thanks to:
