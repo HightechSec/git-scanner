@@ -1,5 +1,7 @@
 # Git Scanner Framework
-![License](https://img.shields.io/badge/License-GPL-blue.svg?style=flat)
+[![License](https://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://github.com/HightechSec/git-scanner/blob/master/LICENSE.md)
+![Build](https://img.shields.io/badge/Supported_OS-Linux-yellow.svg?style=flat)
+![Build](https://img.shields.io/badge/Supported_WSL-Windows-blue.svg?style=flat)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/HightechSec/git-scanner)
 ![GitHub repo size](https://img.shields.io/github/repo-size/HightechSec/git-scanner)
 ![GitHub last commit](https://img.shields.io/github/last-commit/HightechSec/git-scanner)
@@ -9,7 +11,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/HightechSec/git-scanner)
 ![GitHub watchers](https://img.shields.io/github/watchers/HightechSec/git-scanner)
 
-This tool can scan websites with open ```.git``` repositories for `Bug Hunting`/ `Pentesting` and can dump the content of the ```.git``` repositories from webservers that found from the scanning method. This tool works with the provided Single or Mass Target
+This tool can scan websites with open ```.git``` repositories for `Bug Hunting`/ `Pentesting Purposes` and can dump the content of the ```.git``` repositories from webservers that found from the scanning method. This tool works with the provided Single target or Mass Target from a file list
 
 <img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/1-gitscanner.PNG" width="30%"></img> <img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/2-gitscanner.PNG" width="30%"></img> <img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/3-gitscanner.PNG" width="30%"></img> 
 ## Installation
@@ -40,10 +42,10 @@ or you can install in your system like this
 ## Todos
 - Creating a `Docker Images` if it's possible
 - Adding Extractor on the next Version
-- Adding Thread Processing
+- Adding ~~Thread Processing~~ Multi Processing (`Bash doesn't Support Threading`)
 
 ## Changelog
-All notable changes to this project listed in this [file] (https://github.com/HightechSec/git-scanner/blob/master/CHANGELOG.md)
+All notable changes to this project listed in this [file](https://github.com/HightechSec/git-scanner/blob/master/CHANGELOG.md)
 
 # Credits
 Thanks to:
