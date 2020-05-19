@@ -37,10 +37,13 @@ or you can install in your system like this
 * git
 * sed
 
-## Todo
+## Todos
 - Creating a `Docker Images` if it's possible
 - Adding Extractor on the next Version
 - Adding Thread Processing
+
+## Changelog
+All notable changes to this project listed in this [file] (https://github.com/HightechSec/git-scanner/blob/master/CHANGELOG.md)
 
 # Credits
 Thanks to:
