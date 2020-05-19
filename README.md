@@ -11,9 +11,9 @@
 ![GitHub issues](https://img.shields.io/github/issues/HightechSec/git-scanner)
 ![GitHub watchers](https://img.shields.io/github/watchers/HightechSec/git-scanner)
 
-This tool can scan websites with open ```.git``` repositories for `Bug Hunting`/ `Pentesting Purposes` and can dump the content of the ```.git``` repositories from webservers that found from the scanning method. This tool works with the provided Single target or Mass Target from a file list
+This tool can scan websites with open ```.git``` repositories for `Bug Hunting`/ `Pentesting Purposes` and can dump the content of the ```.git``` repositories from webservers that found from the scanning method. This tool works with the provided Single target or Mass Target from a file list.
 
-<img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/1-gitscanner.PNG" width="30%"></img> <img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/2-gitscanner.PNG" width="30%"></img> <img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/3-gitscanner.PNG" width="30%"></img> 
+<img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/4-gitscanner.PNG" width="30%"></img> <img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/5-gitscanner.PNG" width="30%"></img> <img src="https://raw.githubusercontent.com/HightechSec/git-scanner/master/img/6-gitscanner.PNG" width="30%"></img> 
 ## Installation
 ```
 - git clone https://github.com/HightechSec/git-scanner
@@ -28,10 +28,19 @@ or you can install in your system like this
 - $ gitscanner
 ```
 ## Usage
-- Menu `1` is for scanning and dumping git repositories from a provided file that contains the list of url target
-- Menu `2` is for scanning and dumping git repositories from a provided single url target
-- Menu `3` is for scanning only the git repositories from a provided file that contains the list of url target 
-- Menu `4` is for scanning only the git repositories from a provided single url target
+- Menu's
+  - Menu `1` is for scanning and dumping git repositories from a provided file that contains the `list of the target url` or a provided `single target url`.
+  - Menu `2` is for scanning only a git repositories from a provided file that contains the `list of the target url` or a provided `single target url`.
+  - Menu `3` is for Dumping only the git repositories from a provided file that contains `list of the target url` or a provided `single target url`. This will work for the `Maybe Vuln` Results or sometimes with a repository that had directory listing disabled or maybe had a `403 Error Response`.  
+  - Menu `4` is for Extracting files only from a Folder that had .git Repositories to a destination folder
+- URL Format
+  - Use ```http://``` like ```http://example.com``` or ```https://``` like ```https://example.com``` for the url formatting
+  - Make sure use this format in the files that contains the list of possible target that you have, Example:
+    - https://target.com
+    - http://hackerone.com
+    - https://bugcrowd.com
+- Extractor
+  - When using Extractor, make sure the location of the git repositories that you select are correct. Remember, The first option is for inputing the `Selected git repository` and the second option is for inputing the `Destination folder`
 
 ## Requirements
 * curl
@@ -41,7 +50,7 @@ or you can install in your system like this
 
 ## Todos
 - Creating a `Docker Images` if it's possible
-- Adding Extractor on the next Version
+- ~~Adding Extractor on the next Version~~ Added in version 1.0.2#beta but still experimental.
 - Adding ~~Thread Processing~~ Multi Processing (`Bash doesn't Support Threading`)
 
 ## Changelog
