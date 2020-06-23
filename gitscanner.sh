@@ -131,13 +131,13 @@ function download_item() {
 
     if [[ "$objname" =~ /[a-f0-9]{2}/[a-f0-9]{38} ]]; then 
         cwd=$(pwd)
-        cd "$BASEDIR"
+        cd "$BASEDIR" || exit
         
         hash=$(echo "$objname" | sed -e 's~objects~~g' | sed -e 's~/~~g')
         
         type=$(git cat-file -t "$hash" 2> /dev/null)
         if [ $? -ne 0 ]; then
-            cd "$cwd"
+            cd "$cwd" || exit
             rm "$target"
             return 
         fi
@@ -148,7 +148,7 @@ function download_item() {
             hashes+=($(git cat-file -p "$hash" | strings -a | grep -oE "([a-f0-9]{40})"))
         fi
 
-        cd "$cwd"
+        cd "$cwd" || exit
     fi 
     
     hashes+=($(cat "$target" | strings -a | grep -oE "([a-f0-9]{40})"))
@@ -166,7 +166,7 @@ function download_item() {
 
 }
 function extractor(){
-    cd "$BASEDIR"
+    cd "$BASEDIR" || exit
     git checkout .
 }
 start_download && extractor
@@ -242,7 +242,7 @@ if [ "${TARGETDIR:0:1}" != "/" ]; then
 	TARGETDIR="$OLDDIR/$TARGET"
 fi
 
-cd "$SOURCE"
+cd "$SOURCE" || exit
 
 #Extract all object hashes
 find ".git/objects" -type f | 
@@ -256,14 +256,14 @@ find ".git/objects" -type f |
 	if [ "$type" = "commit" ]; then
 		CURDIR=$(pwd)
 		traverse_commit "$TARGETDIR" "$object" $COMMITCOUNT
-		cd "$CURDIR"
+		cd "$CURDIR" || exit
 		
 		COMMITCOUNT=$((COMMITCOUNT+1))
 	fi
 	
 	done;
 
-cd "$OLDDIR";
+cd "$OLDDIR" || exit;
 }
 #Menu Scan&Dump
 function ScanDumpMenu(){
