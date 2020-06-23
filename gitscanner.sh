@@ -24,10 +24,10 @@ LINK='https://github.com/HightechSec/'
 Codename='Assassin Actual'
 Vers=1.0.2#beta
 function banner(){
-echo -e ${CP}" ___  ___ __ _ _ __  _ __   ___ _ __	"
-echo -e ${CP}"/ __|/ __/ _' | '_ \| '_ \ / _ \ '__|   "
-echo -e ${CP}"\__ \ (_| (_| | | | | | | |  __/ |			"
-echo -e ${CP}"|___/\___\__,_|_| |_|_| |_|\___|_|	  " 
+echo -e "${CP}"" ___  ___ __ _ _ __  _ __   ___ _ __	"
+echo -e "${CP}""/ __|/ __/ _' | '_ \| '_ \ / _ \ '__|   "
+echo -e "${CP}""\__ \ (_| (_| | | | | | | |  __/ |			"
+echo -e "${CP}""|___/\___\__,_|_| |_|_| |_|\___|_|	  " 
 echo -e "${BLUE2}A Framework for Scanning and Dumping"
 echo -e "       ${BLUE2}Exposed Git Repository"
 }
@@ -131,13 +131,13 @@ function download_item() {
 
     if [[ "$objname" =~ /[a-f0-9]{2}/[a-f0-9]{38} ]]; then 
         cwd=$(pwd)
-        cd "$BASEDIR"
+        cd "$BASEDIR" || exit
         
         hash=$(echo "$objname" | sed -e 's~objects~~g' | sed -e 's~/~~g')
         
         type=$(git cat-file -t "$hash" 2> /dev/null)
         if [ $? -ne 0 ]; then
-            cd "$cwd"
+            cd "$cwd" || exit
             rm "$target"
             return 
         fi
@@ -148,7 +148,7 @@ function download_item() {
             hashes+=($(git cat-file -p "$hash" | strings -a | grep -oE "([a-f0-9]{40})"))
         fi
 
-        cd "$cwd"
+        cd "$cwd" || exit
     fi 
     
     hashes+=($(cat "$target" | strings -a | grep -oE "([a-f0-9]{40})"))
@@ -166,7 +166,7 @@ function download_item() {
 
 }
 function extractor(){
-    cd $BASEDIR
+    cd "$BASEDIR" || exit
     git checkout .
 }
 start_download && extractor
@@ -191,14 +191,14 @@ function traverse_tree() {
 	local path=$2
 	
     #Read blobs/tree information from root tree
-	git ls-tree $tree |
+	git ls-tree "$tree" |
 	while read leaf; do
-		type=$(echo $leaf | awk -F' ' '{print $2}') #grep -oP "^\d+\s+\K\w{4}");
-		hash=$(echo $leaf | awk -F' ' '{print $3}') #grep -oP "^\d+\s+\w{4}\s+\K\w{40}");
-		name=$(echo $leaf | awk '{$1=$2=$3=""; print substr($0,4)}') #grep -oP "^\d+\s+\w{4}\s+\w{40}\s+\K.*");
+		type=$(echo "$leaf" | awk -F' ' '{print $2}') #grep -oP "^\d+\s+\K\w{4}");
+		hash=$(echo "$leaf" | awk -F' ' '{print $3}') #grep -oP "^\d+\s+\w{4}\s+\K\w{40}");
+		name=$(echo "$leaf" | awk '{$1=$2=$3=""; print substr($0,4)}') #grep -oP "^\d+\s+\w{4}\s+\w{40}\s+\K.*");
 		
         # Get the blob data
-		git cat-file -e $hash;
+		git cat-file -e "$hash";
 		#Ignore invalid git objects (e.g. ones that are missing)
 		if [ $? -ne 0 ]; then
 			continue;
@@ -206,12 +206,12 @@ function traverse_tree() {
 		
 		if [ "$type" = "blob" ]; then
 			echo -e "${NEW}[+] Found file: $path/$name"
-			git cat-file -p $hash > "$path/$name"
+			git cat-file -p "$hash" > "$path/$name"
 		else
 			echo -e "${NEW}[+] Found folder: $path/$name"
 			mkdir -p "$path/$name";
 			#Recursively traverse sub trees
-			traverse_tree $hash "$path/$name";
+			traverse_tree "$hash" "$path/$name";
 		fi
 		
 	done;
@@ -225,11 +225,11 @@ function traverse_commit() {
     #Create folder for commit data
 	echo -e "${NEW}[+] Found commit: $commit";
 	path="$base/$count-$commit"
-	mkdir -p $path;
+	mkdir -p "$path";
     #Add meta information
 	git cat-file -p "$commit" > "$path/commit-meta.txt"
     #Try to extract contents of root tree
-	traverse_tree $commit $path
+	traverse_tree "$commit" "$path"
 }
 
 #Current directory as we'll switch into others and need to restore it.
@@ -242,7 +242,7 @@ if [ "${TARGETDIR:0:1}" != "/" ]; then
 	TARGETDIR="$OLDDIR/$TARGET"
 fi
 
-cd $SOURCE
+cd "$SOURCE" || exit
 
 #Extract all object hashes
 find ".git/objects" -type f | 
@@ -250,20 +250,20 @@ find ".git/objects" -type f |
 	sed -e "s/\.gitobjects//g" |
 	while read object; do
 	
-	type=$(git cat-file -t $object)
+	type=$(git cat-file -t "$object")
 	
     # Only analyse commit objects
 	if [ "$type" = "commit" ]; then
 		CURDIR=$(pwd)
-		traverse_commit "$TARGETDIR" $object $COMMITCOUNT
-		cd $CURDIR
+		traverse_commit "$TARGETDIR" "$object" $COMMITCOUNT
+		cd "$CURDIR" || exit
 		
 		COMMITCOUNT=$((COMMITCOUNT+1))
 	fi
 	
 	done;
 
-cd $OLDDIR;
+cd "$OLDDIR" || exit;
 }
 #Menu Scan&Dump
 function ScanDumpMenu(){
@@ -308,7 +308,7 @@ function mass_sdump(){
                 return 1
         fi
 clear        
-for SITE in $(cat $LISTS);
+for SITE in $(cat "$LISTS");
 do
 	echo ""
 	echo -e "${PINK}Scan & Dump process started..."
@@ -399,7 +399,7 @@ function mass_scan(){
                         return 1
             fi
 clear
-for SITE in $(cat $LISTS);
+for SITE in $(cat "$LISTS");
 do
     echo ""
 	echo -e "${PINK}Scanning process started..."
@@ -484,7 +484,7 @@ function mass_dump(){
                         return 1
             fi
 clear
-for SITE in $(cat $LISTS);
+for SITE in $(cat "$LISTS");
 do
 	echo ""
 	echo -e "${PINK}Dumping process started..."
